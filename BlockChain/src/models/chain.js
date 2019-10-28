@@ -4,7 +4,7 @@ const actions = require('../constants');
 
 const { generateProof, isProofValid } = require('../utils/proof');
 
-class Blockchain {
+class Blockchain { 
   constructor(blocks, io) {
     this.blocks = blocks || [new Block(0, 1, 0, [])];
     this.currentTransactions = [];
