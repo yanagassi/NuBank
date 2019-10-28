@@ -23,14 +23,14 @@ app.post('/nodes', (req, res) => {
   const socketNode = socketListeners(client(node), blockChain);
   blockChain.addNode(socketNode, blockChain);
   if (callback === 'true') {
-    console.info(`Added node ${node} back`);
-    res.json({ status: 'Added node Back' }).end();
+    console.info(`O nó ${node}  foi adicionado para retorno`);
+    res.json({ status: 'Nó adicionado para retorno`' }).end();
   } else { 
     axios.post(`${node}/nodes?callback=true`, {
       host: req.hostname,
       port: PORT,
     });
-    console.info(`Added node ${node}`);
+    console.info(`'O nó ${node} foi adicionado `);
     res.json({ status: 'Added node' }).end();
   }
 });
@@ -38,7 +38,7 @@ app.post('/nodes', (req, res) => {
 app.post('/transaction', (req, res) => {
   const { sender, receiver, amount } = req.body;
   io.emit(SocketActions.ADD_TRANSACTION, sender, receiver, amount);
-  res.json({ message: 'transaction success' }).end();
+  res.json({ message: 'Transação bem sucedida!' }).end();
 });
 
 app.get('/chain', (req, res) => {
@@ -46,12 +46,12 @@ app.get('/chain', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.info(`Socket connected, ID: ${socket.id}`);
+  console.info(`Socket conectado, ID: ${socket.id}`);
   socket.on('disconnect', () => {
-    console.log(`Socket disconnected, ID: ${socket.id}`);
+    console.log(`Socket desconectado, ID: ${socket.id}`);
   });
 });
 
 blockChain.addNode(socketListeners(client(`http://localhost:${PORT}`), blockChain));
 
-httpServer.listen(PORT, () => console.info(`Express server running on ${PORT}...`));
+httpServer.listen(PORT, () => console.info(`Servidor rodando na porta: ${PORT}...`));
