@@ -1,0 +1,3 @@
+[submodule "NuBankApp"]
+	path = NuBankApp
+	url = https://github.com/yanagassi/NuBank
