@@ -25,7 +25,7 @@ app.post('/nodes', (req, res) => {
   if (callback === 'true') {
     console.info(`Added node ${node} back`);
     res.json({ status: 'Added node Back' }).end();
-  } else {
+  } else { 
     axios.post(`${node}/nodes?callback=true`, {
       host: req.hostname,
       port: PORT,
