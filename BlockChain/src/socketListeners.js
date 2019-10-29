@@ -18,8 +18,7 @@ const socketListeners = (socket, chain) => {
     if (blockChain.checkValidity() && blockChain.getLength() >= chain.getLength()) {
       chain.blocks = blockChain.blocks;
     }
-  });
-
+  }); 
   return socket;
 };
 
