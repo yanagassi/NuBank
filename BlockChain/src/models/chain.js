@@ -18,14 +18,14 @@ class Blockchain {
 
   mineBlock(block) {
     this.blocks.push(block);
-    console.log('Mined Successfully');
+    console.log('Mineração bem sucedida');
     this.io.emit(actions.END_MINING, this.toArray());
   }
 
   async newTransaction(transaction) {
     this.currentTransactions.push(transaction);
     if (this.currentTransactions.length === 2) {
-      console.info('Starting mining block...');
+      console.info('Iniciando mineração do bloco...');
       const previousBlock = this.lastBlock();
       process.env.BREAK = false;
       const block = new Block(previousBlock.getIndex() + 1, previousBlock.hashValue(), previousBlock.getProof(), this.currentTransactions);
