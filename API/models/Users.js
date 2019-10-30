@@ -9,7 +9,7 @@ const UserModel = mongoose.Schema(
         dataNascimento: Date,
     },
     {
-        collection: "Users"
+        collection: "users"
     }
 );
-module.exports = mongoose.model('Users',UserModel); 
+module.exports = mongoose.model('users',UserModel); 
