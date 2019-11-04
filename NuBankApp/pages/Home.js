@@ -68,8 +68,14 @@ export default class Home extends React.Component  {
     }
   }
 
+  componentDidMount = () => {
+    this.setState({
+      load:true
+    }) 
+  }
   
   render(){
+    if(this.state.load)
     return (
       <SafeAreaView>
         <Container>
@@ -113,6 +119,11 @@ export default class Home extends React.Component  {
         </Container>
       </SafeAreaView>
     );
+    else
+    return(
+      <SafeAreaView>
+      </SafeAreaView>
+    )
   }
    
 } 

@@ -16,15 +16,15 @@ router.post('/login', function(req, res, next) {
     Users.find({ phone:data.phone, senha:data.senha }) 
     .then(response=>{ 
         if(response.length > 0){
-            const userData =  response[0]; 
-
+            const userData =  response[0];  
             Accounts.find({ idUser: userData._id}) 
-            .then(response=>{  
-              
+            .then(async (response)=>{   
                 res.send({
                     status: "sucess",
-                    data:userData,
-                    transcation: calculaTransacao(Transactions, response[0].accountNumber)
+                    data:{
+                        userData,
+                        saldo:  await calculaTransacao(Transactions, response[0].accountNumber)
+                    } 
                 })
             });
           

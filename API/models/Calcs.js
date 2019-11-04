@@ -1,14 +1,15 @@
  
 module.exports.calculaTransacao = async (Transactions, accountNumber = null) => {
+  
     if(accountNumber == null) return;
         
-    let receiver = null;
-    let sender = null;
+    let receiver = 0;
+    let sender = 0;
 
     await Transactions.find({ receiver: accountNumber }) 
-    .then(response=>{
-        response.forEach(element => {
-            receiver = parseFloat(element.receiver) + parseFloat(receiver);
+    .then(response=>{ 
+        response.forEach(element => { 
+            receiver = parseFloat(element.amount) + parseFloat(receiver);
         });
     }) 
     .catch(e=>{
@@ -16,11 +17,12 @@ module.exports.calculaTransacao = async (Transactions, accountNumber = null) => 
     })
     await Transactions.find({ sender: accountNumber }) 
     .then(response=>{
-        response.forEach(element => {
-            sender = parseFloat(element.sender) + parseFloat(sender);
+        response.forEach(element => {  
+            sender = parseFloat(element.amount) + parseFloat(sender);
         });
     }) 
      
+    console.log(receiver - sender)
     return receiver - sender;
 }
  

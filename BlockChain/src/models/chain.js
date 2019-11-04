@@ -1,4 +1,5 @@
 const Block = require('./block');
+const axios = require('axios');
 
 const actions = require('../constants');
 
@@ -16,15 +17,29 @@ class Blockchain {
     this.nodes.push(node);
   }
 
-  mineBlock(block) {
-    this.blocks.push(block);
-    console.log('Mineração bem sucedida');
-    this.io.emit(actions.END_MINING, this.toArray());
+  mineBlock(block ) {
+    this.blocks.push(block); 
+    const io = this.io
+    const array = this 
+    axios.post(actions.API_URI+"/transactions/response",{
+      index: block.index,
+      proof:  block.proof,
+      sender:  block.transactions[0].sender,
+      receiver: block.transactions[0].receiver,
+      amount:  block.transactions[0].amount
+    })
+    .then(function(res){
+      if(res.data.status === "sucess")
+        io.emit(actions.END_MINING, array.toArray()); 
+    }) 
+    .catch(function(res){
+      console.log(res)
+    })
   }
 
   async newTransaction(transaction) {
     this.currentTransactions.push(transaction);
-    if (this.currentTransactions.length === 2) {
+    if (this.currentTransactions.length === 1) {
       console.info('Iniciando mineração do bloco...');
       const previousBlock = this.lastBlock();
       process.env.BREAK = false;

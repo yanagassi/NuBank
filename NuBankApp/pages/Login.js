@@ -45,6 +45,7 @@ export default class LoginScreen extends React.Component {
       res = res.data;
       console.log(res)
       if(res.status === "sucess"){ 
+        alert(JSON.stringify(usuario))
         this.store.set('usuario', JSON.stringify(res.data));
       }else{ 
         Alert.alert("Ops...",res.msg);
