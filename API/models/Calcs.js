@@ -20,10 +20,8 @@ module.exports.calculaTransacao = async (Transactions, accountNumber = null) => 
         response.forEach(element => {  
             sender = parseFloat(element.amount) + parseFloat(sender);
         });
-    }) 
-     
-    console.log(receiver - sender)
-    return receiver - sender;
+    })  
+    return parseFloat((receiver - sender).toFixed(2));
 }
  
  
